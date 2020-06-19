@@ -46,7 +46,6 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
-/*
 export const addCollectionAndDocuments  = async (collectionKey, objectsToAdd) => {
   //this function receives the objects as array (objectsToAdd), creates a collection in the firebase database named what comes with collectionKey parameter
   //and stores all these objects as documents inside this collection 
@@ -61,7 +60,6 @@ export const addCollectionAndDocuments  = async (collectionKey, objectsToAdd) =>
   });
   return await batch.commit();
 }
-*/
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
