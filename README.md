@@ -1,3 +1,5 @@
+# This app forked from https://github.com/ZhangMYihua/lesson-26-complete
+
 ## Lesson-26-complete
 
 In this repository, all our components have been converted to styled-components!
