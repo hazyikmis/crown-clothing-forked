@@ -1,3 +1,5 @@
+//NOT USED ANYMORE, ALL DATA BELOW TRANSFERRED TO FIREBASE DB WITH THE FUNCTION addCollectionAndDocuments
+//DEFINDE IN firebase.utils.js AND CALLED FROM App.js once
 const SHOP_DATA = {
   hats: {
     id: 1,
