@@ -14,8 +14,7 @@ import CollectionPageContainer from "../collection/collection.container";
 import { connect } from "react-redux";
 
 //import { updateCollections } from "../../redux/shop/shop.actions";
-//import { fetchCollectionsStartAsync } from "../../redux/shop/shop.actions";
-import { fetchCollectionsStart } from "../../redux/shop/shop.actions";
+import { fetchCollectionsStartAsync } from "../../redux/shop/shop.actions";
 //import { createStructuredSelector } from "reselect";
 //import { selectIsCollectionFetching, selectIsCollectionsLoaded } from "../../redux/shop/shop.selectors";
 
@@ -74,8 +73,7 @@ const mapDispatchToProps = (dispatch) => ({
   //after adding redux-thunk, we do not need the codes below
   // updateCollections: (collectionsMap) =>
   //   dispatch(updateCollections(collectionsMap)),
-  //fetchAllCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync()),
-  fetchAllCollectionsStartAsync: () => dispatch(fetchCollectionsStart()),
+  fetchAllCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync()),
 });
 
 /*
