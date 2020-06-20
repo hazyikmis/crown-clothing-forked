@@ -27,6 +27,8 @@ class ShopPage extends React.Component {
 
     const collectionRef = firestore.collection("collections"); //access the firebase collection named "collections"
 
+    /* 
+    //OBSERVABLE - OBSERVER APPROACH:
     //onSnapshot: Attaches a listener for QuerySnapshot events.
     this.unsubscribeFromSnapShot = collectionRef.onSnapshot(
       async (snapshot) => {
@@ -39,7 +41,27 @@ class ShopPage extends React.Component {
         this.setState({ loading: false });
       }
     );
-  }
+    */
+
+    //PROMISE APPROACH:
+    
+    collectionRef.get().then((snapshot) => {
+      const collectionsMap = convertCollectionsSnapshotMap(snapshot);
+      updateCollections(collectionsMap);
+      this.setState({ loading: false });
+    });
+    
+
+    //FETCH REST API APPROACH: (Special to FIREBASE)
+    //https://firebase.google.com/docs/firestore/use-rest-api
+    /*
+    fetch("https://firestore.googleapis.com/v1/projects/king-clothing-db-421f1/databases/(default)/documents/collections")
+    .then(response => response.json())
+    .then(collections => console.log(collections))
+    */
+    //THE RESULTING collections EXTREMELY NESTED!!! not could be used properly here
+    //BUT data is here :) Should be used conversion functions like convertCollectionsSnapshotMap
+   }
 
   render() {
     const { match } = this.props;
