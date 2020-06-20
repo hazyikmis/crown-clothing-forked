@@ -1,6 +1,6 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/auth';
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/auth";
 
 import { FIREBASE_APIKEY } from "../.env.js";
 
@@ -23,7 +23,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   const userRef = firestore.doc(`users/${userAuth.uid}`);
   // const collectionRef = firestore.collection("users");
 
-  const snapShot = await userRef.get();  //data in the snapShot can be accessible by snapShot.data()
+  const snapShot = await userRef.get(); //data in the snapShot can be accessible by snapShot.data()
   // const collectionSnapshot = await collectionRef.get();
   // console.log(collectionSnapshot); //console.log({collectionSnapshot});
   // console.log({userCollection: collectionSnapshot.docs.map(doc => doc.data())})
@@ -36,10 +36,10 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         displayName,
         email,
         createdAt,
-        ...additionalData
+        ...additionalData,
       });
     } catch (error) {
-      console.log('error creating user', error.message);
+      console.log("error creating user", error.message);
     }
   }
 
@@ -63,11 +63,32 @@ export const addCollectionAndDocuments  = async (collectionKey, objectsToAdd) =>
 }
 */
 
+export const convertCollectionsSnapshotMap = (collections) => {
+  const transformedCollection = collections.docs.map((doc) => {
+    const { title, items } = doc.data();
+    return {
+      routeName: encodeURI(title),
+      id: doc.id, //id belongs to doc snapshot, not to doc.data()
+      title,
+      items,
+    };
+  });
+
+  console.log(transformedCollection);
+  //transformedCollection is an array (array of objects) 
+  //the reduce operation below converts this array to object (object of objects, key:value pairs)
+  //if you uncomment the respective console.log line inside the shop.component.jsx / componentDidMount, you'll see how is the resultant object
+  return transformedCollection.reduce((acc, collection) => {
+    acc[collection.title.toLowerCase()] = collection;
+    return acc;
+  }, {});
+};
+
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
 const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: 'select_account' });
+provider.setCustomParameters({ prompt: "select_account" });
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
 export default firebase;
