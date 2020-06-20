@@ -22,3 +22,6 @@ const CollectionsOverviewContainer = compose(
 )(CollectionsOverview);
 
 export default CollectionsOverviewContainer;
+
+//BE CAREFUL: THIS CONTAINER TYPE OF COMPONENT DOES NOT
+//RENDER ANYTHING. THEY JUST PASS PROPS DOWN TO COMPONENTS
