@@ -6,7 +6,10 @@ import logger from "redux-logger";
 //import thunk from "redux-thunk";
 import createSagaMiddleware from "redux-saga";
 
-import { fetchCollectionsStart } from "./shop/shop.sagas";
+//rather than importing one saga and run it in the sagaMiddleware.run
+//we created root-saga.js and run all them concurrently
+//import { fetchCollectionsStart } from "./shop/shop.sagas";
+import rootSaga from "../redux/root-saga";
 
 import rootReducer from "./root-reducer";
 
@@ -21,7 +24,8 @@ if (process.env.NODE_ENV === "development") {
 
 export const store = createStore(rootReducer, applyMiddleware(...middlewares));
 
-sagaMiddleware.run(fetchCollectionsStart);
+//sagaMiddleware.run(fetchCollectionsStart);
+sagaMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);
 

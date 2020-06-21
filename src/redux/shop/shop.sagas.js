@@ -1,6 +1,7 @@
 //saga runs all generator functions concurrently!!!
 
-import { takeEvery, call, put } from "redux-saga/effects";
+//import { takeEvery, call, put } from "redux-saga/effects";
+import { takeLatest, call, put } from "redux-saga/effects";
 //takeEvery: listens for every action of a specific type that we pass to it
 //put: used for creating/dispatching actions (dispatch method not used in saga)
 
@@ -39,7 +40,8 @@ export function* fetchCollectionsAsync() {
 export function* fetchCollectionsStart() {
   //what does saga does with the effect?
   //it is going to pause whenever a specific action type comes in
-  yield takeEvery(
+  //yield takeEvery(
+  yield takeLatest(
     ShopActionTypes.FETCH_COLLECTIONS_START,
     fetchCollectionsAsync
   );
