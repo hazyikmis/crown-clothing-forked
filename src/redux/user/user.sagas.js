@@ -6,10 +6,9 @@ import {
   createUserProfileDocument,
 } from "../../firebase/firebase.utils";
 import {
-  googleSignInSuccess,
-  googleSignInFailure,
-  emailSignInSuccess,
-  emailSignInFailure,
+  //googleSignInSuccess, googleSignInFailure, emailSignInSuccess, emailSignInFailure,
+  signInSuccess, signInFailure,
+
 } from "./user.actions";
 
 export function* signInWithGoogle() {
@@ -20,11 +19,13 @@ export function* signInWithGoogle() {
     const userRef = yield call(createUserProfileDocument, user);
     const userSnapshot = yield userRef.get();
     yield put(
-      googleSignInSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
+      //googleSignInSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
+      signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
     );
     //put(), puts things back into our regular Redux flow!
   } catch (error) {
-    yield put(googleSignInFailure(error));
+    //yield put(googleSignInFailure(error));
+    yield put(signInFailure(error));
   }
 }
 
@@ -39,10 +40,12 @@ export function* signInWithEmail({ payload: { email, password } }) {
     const userRef = yield call(createUserProfileDocument, user);
     const userSnapshot = yield userRef.get();
     yield put(
-      emailSignInSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
+      //emailSignInSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
+      signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
     );
   } catch (error) {
-    put(emailSignInFailure(error));
+    //put(emailSignInFailure(error));
+    yield put(signInFailure(error));
   }
 }
 
