@@ -21,9 +21,9 @@ import { selectCurrentUser } from "./redux/user/user.selectors";
 //import {selectCollectionsForPreview} from "./redux/shop/shop.selectors";
 
 class App extends React.Component {
-  unsubscribeFromAuth = null;
+  //unsubscribeFromAuth = null;
 
-  componentDidMount() {
+  //componentDidMount() {
     //const { setCurrentUser, collectionsArray } = this.props;
     //const { setCurrentUser } = this.props;
     /*
@@ -52,11 +52,11 @@ class App extends React.Component {
 
     });
 */
-  }
+ // }
 
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
-  }
+  // componentWillUnmount() {
+  //   this.unsubscribeFromAuth();
+  // }
 
   render() {
     return (
