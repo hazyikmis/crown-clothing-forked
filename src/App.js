@@ -25,9 +25,9 @@ class App extends React.Component {
 
   componentDidMount() {
     //const { setCurrentUser, collectionsArray } = this.props;
-
     const { setCurrentUser } = this.props;
 
+/*
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
@@ -50,7 +50,9 @@ class App extends React.Component {
       //IMPORTANT: THE LINE BELOW LET US TO CREATE & FILL "collections" COLLECTION IN THE FIREBASE DATABASE AUTOMATICALLY
       //BECAUSE OF THAT, IT SHOULD BE USED CAREFULLY AND RUN ONCE
       //addCollectionAndDocuments("collections", collectionsArray.map(({title, items}) => ({title, items})))
+
     });
+*/    
   }
 
   componentWillUnmount() {
