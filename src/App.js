@@ -20,6 +20,8 @@ import { selectCurrentUser } from "./redux/user/user.selectors";
 
 //import {selectCollectionsForPreview} from "./redux/shop/shop.selectors";
 
+import { checkUserSession } from "./redux/user/user.actions";
+
 class App extends React.Component {
   //unsubscribeFromAuth = null;
 
@@ -53,6 +55,11 @@ class App extends React.Component {
     });
 */
  // }
+
+  componentDidMount() {
+    const {checkUserSession} = this.props;
+    checkUserSession();
+  }
 
   // componentWillUnmount() {
   //   this.unsubscribeFromAuth();
@@ -93,7 +100,13 @@ const mapStateToProps = createStructuredSelector({
 //   setCurrentUser: user => dispatch(setCurrentUser(user))
 // });
 
+//after adding checkUserSession, we again added this mapDispatchToProps back
+const mapDispatchToProps = dispatch => ({
+  checkUserSession: () => dispatch(checkUserSession())
+});
+
+
 export default connect(
-  mapStateToProps
-  //mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(App);

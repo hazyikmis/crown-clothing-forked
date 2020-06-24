@@ -84,6 +84,27 @@ export const convertCollectionsSnapshotMap = (collections) => {
   }, {});
 };
 
+export const getCurrentUSer = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged(userAuth => {
+      unsubscribe();
+      resolve(userAuth)
+    }, reject)
+  })
+}
+// Why is it that we return a Promise in our getCurrentUser function.
+// Isn't the callback function inside of onAuthStateChanged ran asynchronously?
+// Answer: 
+//If you console.log(userAuth) beneath our saga that calls getCurrentUser 
+// you'll see that userAuth is always undefined. Using the way you have it above, 
+// you'll notice that we're not actually returning the value of userAuth to the 
+// getCurrentUser function because userAuth is being returned inside your inner callback, 
+// which is the return of that callback! We get around this by wrapping it in a promise
+// which is what we return as the resolved value of that promise when the asynchronous 
+// response is complete :)
+
+
+
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
