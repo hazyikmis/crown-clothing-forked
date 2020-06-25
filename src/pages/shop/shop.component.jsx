@@ -1,7 +1,7 @@
 //AFTER USING CONTAINER PATTERN/APPROACH FOR CollectionsOverview & CollectionPage
 //COMPONENTS, THIS COMPONENT HIGHLY SIMPLIFIED
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
 
 //import CollectionsOverview from "../../components/collections-overview/collections-overview.component";
@@ -24,51 +24,56 @@ import { fetchCollectionsStart } from "../../redux/shop/shop.actions";
 //const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
 //const CollectionPageWithSpinner = WithSpinner(CollectionPage);
 
-class ShopPage extends React.Component {
+const ShopPage = ({ fetchAllCollectionsStartAsync, match }) => {
   //state = { loading: true }; //for showing of not showing the spinner component
 
   //with the adding redux-thunk and all async fetch data code moved into the shop.actions
   //If you want to see previous code, please check shop.component0.jsx
-  componentDidMount() {
-    const { fetchAllCollectionsStartAsync } = this.props;
-    fetchAllCollectionsStartAsync();
-  }
 
-  render() {
-    //const { match } = this.props;
-    //const { match, isCollectionFetching, isCollectionsLoaded } = this.props;
-    //const { match, isCollectionsLoaded } = this.props;
-    const { match } = this.props;
-    return (
-      <div className="shop-page">
-        {/* <Route exact path={`${match.path}`} component={CollectionsOverview} /> */}
-        <Route
-          exact
-          path={`${match.path}`}
-          // render={(props) => (
-          //   <CollectionsOverviewWithSpinner
-          //     isLoading={isCollectionFetching}
-          //     {...props}
-          //   />
-          // )}
-          component={CollectionsOverviewContainer}
-        />
-        {/* <Route path={`${match.path}/:collectionId`} component={CollectionPage} /> */}
-        <Route
-          path={`${match.path}/:collectionId`}
-          // render={(props) => (
-          //   <CollectionPageWithSpinner
-          //     //isLoading={isCollectionFetching}
-          //     isLoading={!isCollectionsLoaded}
-          //     {...props}
-          //   />
-          // )}
-          component={CollectionPageContainer}
-        />
-      </div>
-    );
-  }
-}
+  // componentDidMount() {
+  //   const { fetchAllCollectionsStartAsync } = this.props;
+  //   fetchAllCollectionsStartAsync();
+  // }
+
+  useEffect(() => {
+    fetchAllCollectionsStartAsync();
+  }, [fetchAllCollectionsStartAsync]);
+
+  //render() {
+  //const { match } = this.props;
+  //const { match, isCollectionFetching, isCollectionsLoaded } = this.props;
+  //const { match, isCollectionsLoaded } = this.props;
+  //const { match } = this.props;
+  return (
+    <div className="shop-page">
+      {/* <Route exact path={`${match.path}`} component={CollectionsOverview} /> */}
+      <Route
+        exact
+        path={`${match.path}`}
+        // render={(props) => (
+        //   <CollectionsOverviewWithSpinner
+        //     isLoading={isCollectionFetching}
+        //     {...props}
+        //   />
+        // )}
+        component={CollectionsOverviewContainer}
+      />
+      {/* <Route path={`${match.path}/:collectionId`} component={CollectionPage} /> */}
+      <Route
+        path={`${match.path}/:collectionId`}
+        // render={(props) => (
+        //   <CollectionPageWithSpinner
+        //     //isLoading={isCollectionFetching}
+        //     isLoading={!isCollectionsLoaded}
+        //     {...props}
+        //   />
+        // )}
+        component={CollectionPageContainer}
+      />
+    </div>
+  );
+};
+//}
 
 const mapDispatchToProps = (dispatch) => ({
   //after adding redux-thunk, we do not need the codes below
