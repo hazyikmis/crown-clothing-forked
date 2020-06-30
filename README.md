@@ -1,5 +1,14 @@
 # This app forked from https://github.com/ZhangMYihua/lesson-26-complete
 
+## Up to Section-23
+
+In this version, redux + sagas are used.
+And in order to finalize stripe transactions, nodejs server added.
+All previous code moved to client folder.
+
+(Please check the crown-clothing-contextAPI-forked repository for
+this same app but without redux & sagas: https://github.com/hazyikmis/crown-clothing-contextAPI-forked)
+
 ## Lesson-26-complete
 
 In this repository, all our components have been converted to styled-components!
