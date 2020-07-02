@@ -23,7 +23,7 @@ export const LogoContainer = styled(Link)`
   @media screen and (max-width: 800px) {
     width: 50px;
     padding: 0;
-  }  
+  }
 `;
 
 export const OptionsContainer = styled.div`
@@ -34,7 +34,7 @@ export const OptionsContainer = styled.div`
   justify-content: flex-end;
 
   @media screen and (max-width: 800px) {
-    width: 80%
+    width: 80%;
   }
 `;
 
