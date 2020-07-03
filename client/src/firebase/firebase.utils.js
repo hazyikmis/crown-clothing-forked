@@ -2,7 +2,9 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 
-import { FIREBASE_APIKEY } from "../.env.js";
+//import { FIREBASE_APIKEY } from "../.env.js";
+
+const FIREBASE_APIKEY = "AIzaSyDwjY_1lcQhfa7V2zk8oGDlUFVRv_2df8s";
 
 const config = {
   apiKey: FIREBASE_APIKEY,
