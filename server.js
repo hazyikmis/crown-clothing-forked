@@ -24,11 +24,12 @@ app.use(compression()); //this library converts all js chunks gzipped and transf
 
 app.use(bodyParser.json()); //incoming requests & outgoing responses converted to json
 app.use(bodyParser.urlencoded({ extended: true })); //all urls made sure valid, not using ambiguous characters
+app.use(enforce.HTTPS({ trustProtoHeader: true }));
 
 app.use(cors()); //allows access to server from same server/different port
 
 if (process.env.NODE_ENV === "production") {
-  app.use(enforce.HTTPS({ trustProtoHeader: true }));
+  //app.use(enforce.HTTPS({ trustProtoHeader: true }));
   app.use(express.static(path.join(__dirname, "client/build")));
 
   app.get("*", function (req, res) {
@@ -40,6 +41,12 @@ app.listen(port, (error) => {
   if (error) throw error;
   console.log("Server is running on port: " + port);
 });
+
+app.get("/server-worker.js", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "..", "build", "service-worker.js"));
+});
+//"..":means up one folder
+//"build": go to "build" folder
 
 app.post("/payment", (req, res) => {
   const body = {
