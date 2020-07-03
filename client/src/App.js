@@ -13,7 +13,6 @@ import { GlobalStyle } from "./global.styles";
 
 import Spinner from "./components/spinner/spinner.component";
 
-
 import Header from "./components/header/header.component";
 
 //import { auth, createUserProfileDocument, addCollectionAndDocuments } from './firebase/firebase.utils';
@@ -25,6 +24,8 @@ import { selectCurrentUser } from "./redux/user/user.selectors";
 //import {selectCollectionsForPreview} from "./redux/shop/shop.selectors";
 
 import { checkUserSession } from "./redux/user/user.actions";
+
+import ErrorBoundary from "./components/error-boundary/error-boundary.component";
 
 //it's really unnecessary to load HomePage lazy, and wrap it with Suspense. (shown here for just test purposes!!!)
 const HomePage = lazy(() => import("./pages/homepage/homepage.component"));
@@ -89,19 +90,21 @@ const App = ({ checkUserSession, currentUser }) => {
       <Header />
       <Switch>
         {/* <Suspense fallback={<div>...Loading</div>}> */}
-        <Suspense fallback={<Spinner />}>
-          <Route exact path="/" component={HomePage} />
+        <ErrorBoundary>
+          <Suspense fallback={<Spinner />}>
+            <Route exact path="/" component={HomePage} />
 
-          <Route path="/shop" component={ShopPage} />
-          <Route exact path="/checkout" component={CheckoutPage} />
-          <Route
-            exact
-            path="/signin"
-            render={() =>
-              currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
-            }
-          />
-        </Suspense>
+            <Route path="/shop" component={ShopPage} />
+            <Route exact path="/checkout" component={CheckoutPage} />
+            <Route
+              exact
+              path="/signin"
+              render={() =>
+                currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
+              }
+            />
+          </Suspense>
+        </ErrorBoundary>
       </Switch>
     </div>
   );

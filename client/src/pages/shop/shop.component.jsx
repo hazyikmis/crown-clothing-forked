@@ -1,13 +1,14 @@
 //AFTER USING CONTAINER PATTERN/APPROACH FOR CollectionsOverview & CollectionPage
 //COMPONENTS, THIS COMPONENT HIGHLY SIMPLIFIED
 
-import React, { useEffect } from "react";
+import React, { useEffect, lazy, Suspense } from "react";
 import { Route } from "react-router-dom";
 
 //import CollectionsOverview from "../../components/collections-overview/collections-overview.component";
-import CollectionsOverviewContainer from "../../components/collections-overview/collections-overview.container";
+//import CollectionsOverviewContainer from "../../components/collections-overview/collections-overview.container";
+
 //import CollectionPage from "../collection/collection.component";
-import CollectionPageContainer from "../collection/collection.container";
+//import CollectionPageContainer from "../collection/collection.container";
 
 //import {firestore, convertCollectionsSnapshotMap} from "../../firebase/firebase.utils";
 
@@ -23,6 +24,16 @@ import { fetchCollectionsStart } from "../../redux/shop/shop.actions";
 
 //const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
 //const CollectionPageWithSpinner = WithSpinner(CollectionPage);
+
+import Spinner from "../../components/spinner/spinner.component";
+
+const CollectionsOverviewContainer = lazy(() =>
+  import("../../components/collections-overview/collections-overview.container")
+);
+
+const CollectionPageContainer = lazy(() =>
+  import("../collection/collection.container")
+);
 
 const ShopPage = ({ fetchAllCollectionsStartAsync, match }) => {
   //state = { loading: true }; //for showing of not showing the spinner component
@@ -47,29 +58,31 @@ const ShopPage = ({ fetchAllCollectionsStartAsync, match }) => {
   return (
     <div className="shop-page">
       {/* <Route exact path={`${match.path}`} component={CollectionsOverview} /> */}
-      <Route
-        exact
-        path={`${match.path}`}
-        // render={(props) => (
-        //   <CollectionsOverviewWithSpinner
-        //     isLoading={isCollectionFetching}
-        //     {...props}
-        //   />
-        // )}
-        component={CollectionsOverviewContainer}
-      />
-      {/* <Route path={`${match.path}/:collectionId`} component={CollectionPage} /> */}
-      <Route
-        path={`${match.path}/:collectionId`}
-        // render={(props) => (
-        //   <CollectionPageWithSpinner
-        //     //isLoading={isCollectionFetching}
-        //     isLoading={!isCollectionsLoaded}
-        //     {...props}
-        //   />
-        // )}
-        component={CollectionPageContainer}
-      />
+      <Suspense fallback={<Spinner />}>
+        <Route
+          exact
+          path={`${match.path}`}
+          // render={(props) => (
+          //   <CollectionsOverviewWithSpinner
+          //     isLoading={isCollectionFetching}
+          //     {...props}
+          //   />
+          // )}
+          component={CollectionsOverviewContainer}
+        />
+        {/* <Route path={`${match.path}/:collectionId`} component={CollectionPage} /> */}
+        <Route
+          path={`${match.path}/:collectionId`}
+          // render={(props) => (
+          //   <CollectionPageWithSpinner
+          //     //isLoading={isCollectionFetching}
+          //     isLoading={!isCollectionsLoaded}
+          //     {...props}
+          //   />
+          // )}
+          component={CollectionPageContainer}
+        />
+      </Suspense>
     </div>
   );
 };
