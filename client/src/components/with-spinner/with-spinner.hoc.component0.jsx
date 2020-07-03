@@ -1,10 +1,16 @@
 import React from "react";
 
-//import { SpinnerContainer, SpinnerOverlay } from "./with-spinner.hoc.styles";
-import Spinner from "../spinner/spinner.component";
+import { SpinnerContainer, SpinnerOverlay } from "./with-spinner.hoc.styles";
 
+//All HOCs accepts a regular component as props and returns a functional component
 const WithSpinnerHoc = (WrappedComponent) => ({ isLoading, ...otherProps }) => {
-  return isLoading ? <Spinner /> : <WrappedComponent {...otherProps} />;
+  return isLoading ? (
+    <SpinnerOverlay>
+      <SpinnerContainer />
+    </SpinnerOverlay>
+  ) : (
+    <WrappedComponent {...otherProps} />
+  );
 };
 
 export default WithSpinnerHoc;
@@ -24,7 +30,3 @@ const WithSpinnerHoc = (WrappedComponent) => {
   return Spinner;
 };
 */
-
-
-//NO REFERENCE TO THIS COMPONENT
-//After using lazy & Suspense and referring "Spinner" component as fallback

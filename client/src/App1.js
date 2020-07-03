@@ -1,18 +1,15 @@
-import React, { useEffect, lazy, Suspense } from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
 //import "./App.css";
-import { GlobalStyle } from "./global.styles";
+import {GlobalStyle} from "./global.styles"
 
-//import HomePage from "./pages/homepage/homepage.component";  //lazy loading
-//import ShopPage from "./pages/shop/shop.component";
-//import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
-//import CheckoutPage from "./pages/checkout/checkout.component";
-
-import Spinner from "./components/spinner/spinner.component";
-
+import HomePage from "./pages/homepage/homepage.component";
+import ShopPage from "./pages/shop/shop.component";
+import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
+import CheckoutPage from "./pages/checkout/checkout.component";
 
 import Header from "./components/header/header.component";
 
@@ -25,16 +22,6 @@ import { selectCurrentUser } from "./redux/user/user.selectors";
 //import {selectCollectionsForPreview} from "./redux/shop/shop.selectors";
 
 import { checkUserSession } from "./redux/user/user.actions";
-
-//it's really unnecessary to load HomePage lazy, and wrap it with Suspense. (shown here for just test purposes!!!)
-const HomePage = lazy(() => import("./pages/homepage/homepage.component"));
-//if I do not use Suspense, since this loading of HomePage is async, the app throws an error at the beginning
-//in order to escape from this, we are using Suspense, together with lazy
-const ShopPage = lazy(() => import("./pages/shop/shop.component"));
-const SignInAndSignUpPage = lazy(() =>
-  import("./pages/sign-in-and-sign-up/sign-in-and-sign-up.component")
-);
-const CheckoutPage = lazy(() => import("./pages/checkout/checkout.component"));
 
 const App = ({ checkUserSession, currentUser }) => {
   //unsubscribeFromAuth = null;
@@ -88,20 +75,16 @@ const App = ({ checkUserSession, currentUser }) => {
       <GlobalStyle />
       <Header />
       <Switch>
-        {/* <Suspense fallback={<div>...Loading</div>}> */}
-        <Suspense fallback={<Spinner />}>
-          <Route exact path="/" component={HomePage} />
-
-          <Route path="/shop" component={ShopPage} />
-          <Route exact path="/checkout" component={CheckoutPage} />
-          <Route
-            exact
-            path="/signin"
-            render={() =>
-              currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
-            }
-          />
-        </Suspense>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/shop" component={ShopPage} />
+        <Route exact path="/checkout" component={CheckoutPage} />
+        <Route
+          exact
+          path="/signin"
+          render={() =>
+            currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
+          }
+        />
       </Switch>
     </div>
   );
@@ -123,9 +106,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-
-//we cane send a beautiful react component as a fallback for Suspense
-//its possible to use multiple Suspenses with multiple fallbacks
-//<Suspense fallback={<div>...Loading</div>}>
-//  <Route exact path="/" component={HomePage} />
-//</Suspense>
