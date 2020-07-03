@@ -4,6 +4,8 @@
 
 import React from "react";
 
+import {ErrorImageOverlay, ErrorImageContainer, ErrorImageText} from "./error-boundary.styles"
+
 class ErrorBoundary extends React.Component {
   state = {
     hasErrored: false,
@@ -20,10 +22,18 @@ class ErrorBoundary extends React.Component {
 
   render() {
     if (this.state.hasErrored) {
-      return <div>Something went wrong!</div>;
+      //return <div>Something went wrong!</div>;
+      return (
+        <ErrorImageOverlay>
+          <ErrorImageContainer imageUrl="https://i.imgur.com/O0DCcQy.png" />
+          <ErrorImageText>Sorry this ice-cream is dropped to the ground!</ErrorImageText>
+        </ErrorImageOverlay>
+      )
     }
     return this.props.children;
   }
 }
 
 export default ErrorBoundary;
+
+//its possible to define multiple error boundaries & error messages / differently process these errors
