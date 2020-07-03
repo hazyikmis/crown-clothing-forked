@@ -1,3 +1,5 @@
+# This app accessible from https://king-clthing.herokuapp.com/shop
+
 # This app forked from https://github.com/ZhangMYihua/lesson-26-complete
 
 ## Up to Section-23
