@@ -3,6 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const path = require("path");
 const compression = require("compression");
+const enforce = require("express-sslify");
 
 /*
 import express from "express";
@@ -18,7 +19,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(compression());  //this library converts all js chunks gzipped and transferred to client whit gzipped chunks
+app.use(compression()); //this library converts all js chunks gzipped and transferred to client whit gzipped chunks
 //not only server, everything (inside the client)
 
 app.use(bodyParser.json()); //incoming requests & outgoing responses converted to json
@@ -27,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true })); //all urls made sure valid, 
 app.use(cors()); //allows access to server from same server/different port
 
 if (process.env.NODE_ENV === "production") {
+  app.use(enforce.HTTPS({ trustProtoHeader: true }));
   app.use(express.static(path.join(__dirname, "client/build")));
 
   app.get("*", function (req, res) {
